@@ -5,7 +5,7 @@ const getDokter = (res) => {
   const sql = `SELECT * FROM dokter`;
   db.query(sql, (err, fields) => {
     if (err) throw err;
-    response(200, fields, 'dokter get list', res);
+    response(200, fields, res);
   });
 };
 
@@ -15,7 +15,7 @@ const getDokterById = (req, res) => {
 
   db.query(sql, [id_dokter], (err, fields) => {
     if (err) throw err;
-    response(200, fields, 'get detail dokter', res);
+    response(200, fields, res);
   });
 };
 
@@ -24,7 +24,7 @@ const postDokter = (req, res) => {
   const sql = `INSERT INTO dokter (nama_dokter,deskripsi) VALUES ('${nama_dokter}','${deskripsi}')`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         table: {
@@ -33,7 +33,7 @@ const postDokter = (req, res) => {
         },
         isSuccess: fields.affectedRows,
       };
-      response(200, data, 'data added succes', res);
+      response(200, data, res);
     }
   });
 };
@@ -63,14 +63,14 @@ const deleteDokter = (req, res) => {
   const sql = `DELETE FROM dokter WHERE id_dokter = ${id_dokter}`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         isDelete: fields.affectedRows,
       };
-      response(200, data, 'DELETE DATA SUCCESS', res);
+      response(200, data, res);
     } else {
-      response(404, 'USER NOT FOUND', 'ERROR', res);
+      response(404, 'USER NOT FOUND', res);
     }
   });
 };

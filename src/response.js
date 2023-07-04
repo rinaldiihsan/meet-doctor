@@ -1,11 +1,5 @@
-const response = (statusCode, data, message, res) => {
-  res.send(statusCode, [
-    {
-      payload: data,
-      message,
-    },
-  ]);
+const response = (statusCode, fields, res) => {
+  res.send(statusCode, fields);
 };
 
 module.exports = response;
- 
