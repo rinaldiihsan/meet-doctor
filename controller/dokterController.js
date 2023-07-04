@@ -45,15 +45,15 @@ const putDokter = (req, res) => {
   const sql = `UPDATE dokter SET nama_dokter = '${nama_dokter}',deskripsi = '${deskripsi}' WHERE id_dokter = ${id_dokter}`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         isSucccess: fields.affectedRows,
         message: fields.message,
       };
-      response(200, data, 'UPDATE DATA SUCCESS', res);
+      response(200, data, res);
     } else {
-      response(404, 'USER NOT FOUND', 'ERROR', res);
+      response(404, 'USER NOT FOUND', res);
     }
   });
 };

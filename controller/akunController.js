@@ -5,7 +5,7 @@ const getAkun = (res) => {
   const sql = 'SELECT * FROM akun';
   db.query(sql, (err, fields) => {
     if (err) throw err;
-    response(200, fields, 'akun get list', res);
+    response(200, fields, res);
   });
 };
 
@@ -14,7 +14,7 @@ const getAkunById = (req, res) => {
   const sql = 'SELECT * FROM akun WHERE id = ?';
   db.query(sql, [id], (err, fields) => {
     if (err) throw err;
-    response(200, fields, 'get detail akun', res);
+    response(200, fields, res);
   });
 };
 
@@ -23,13 +23,13 @@ const postAkun = (req, res) => {
   const sql = `INSERT INTO akun (username, password, email, tanggal_lahir,tinggi,berat, jenis_kelamin, golongan_darah, alergi, kondisi_medis) VALUES ('${username}','${password}','${email}','${tanggal_lahir}',${tinggi},${berat},'${jenis_kelamin}','${golongan_darah}','${alergi}','${kondisi_medis}')`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         isSuccess: fields.affectedRows,
         id: fields.insertId,
       };
-      response(200, data, 'data added success', res);
+      response(200, data, res);
     }
   });
 };
@@ -45,9 +45,9 @@ const loginAkun = (req, res) => {
         isSuccess: true,
         user: results[0],
       };
-      response(200, data, 'login successful', res);
+      response(200, data, res);
     } else {
-      response(401, 'invalid', 'invalid email or password', res);
+      response(401, 'invalid', res);
     }
   });
 };
@@ -59,15 +59,15 @@ const putAkun = (req, res) => {
   const sql = `UPDATE akun SET username = '${username}',password = '${password}',email = '${email}',tanggal_lahir = '${tanggal_lahir}',tinggi = ${tinggi}, berat = ${berat}, jenis_kelamin = '${jenis_kelamin}', golongan_darah = '${golongan_darah}',alergi = '${alergi}',kondisi_medis = '${kondisi_medis}' WHERE id = ${id}`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         isSuccess: fields.affectedRows,
         message: fields.message,
       };
-      response(200, data, 'Update data success', res);
+      response(200, data, res);
     } else {
-      response(404, 'User not found', 'erorr', res);
+      response(404, 'User not found', res);
     }
   });
 };
@@ -77,14 +77,14 @@ const deleteAkun = (req, res) => {
   const sql = `DELETE FROM akun WHERE id = ${id}`;
 
   db.query(sql, (err, fields) => {
-    if (err) response(500, 'invalid', 'error', res);
+    if (err) response(500, 'invalid', res);
     if (fields?.affectedRows) {
       const data = {
         isDelete: fields.affectedRows,
       };
-      response(200, data, 'DELETE Data Success', res);
+      response(200, data, res);
     } else {
-      response(404, 'USER NOT FOUND', 'ERROR', res);
+      response(404, 'USER NOT FOUND', res);
     }
   });
 };
